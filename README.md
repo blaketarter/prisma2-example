@@ -75,6 +75,8 @@ https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-cli/command-ref
 
 https://www.prisma.io/docs/understand-prisma/prisma-in-your-stack/graphql
 
+https://www.youtube.com/watch?v=tw1E9vVYWa8
+
 ### GraphQL
 
 https://www.apollographql.com/docs/apollo-server/
