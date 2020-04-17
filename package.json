@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
-    "seed": "ts-node seed.ts",
-    "studio": "prisma studio --experimental",
+    "start": "node dist/server",
+    "start:dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server",
+    "tsc": "tsc",
+    "clean": "rm -rf dist",
+    "build": "run-s clean generate tsc",
+    "prisma:log": "ts-node prisma/log.ts",
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:studio": "prisma studio --experimental",
     "migration:create": "prisma migrate save --experimental",
     "migration:run": "prisma migrate up --experimental",
     "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only src/schema.ts",
     "generate": "run-s generate:*",
     "postinstall": "npm run generate"
   },
@@ -20,9 +26,17 @@
     "@types/node": "^13.11.1",
     "npm-run-all": "^4.1.5",
     "ts-node": "^8.8.2",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@prisma/client": "^2.0.0-beta.2"
+    "@nexus/schema": "^0.13.1",
+    "@prisma/client": "^2.0.0-beta.2",
+    "apollo-server": "^2.12.0",
+    "graphql": "^15.0.0",
+    "nexus-prisma": "^0.12.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
