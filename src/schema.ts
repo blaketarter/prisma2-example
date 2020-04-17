@@ -10,6 +10,7 @@ const User = objectType({
     t.model.posts({
       pagination: false,
     })
+    t.model.profile({})
   },
 })
 
@@ -23,6 +24,16 @@ const Post = objectType({
     t.model.author()
     t.model.authorId()
   },
+})
+
+const Profile = objectType({
+  name: 'Profile',
+  definition(t) {
+    t.model.id()
+    t.model.bio()
+    t.model.user()
+    t.model.userId()
+  }
 })
 
 const Query = objectType({
@@ -102,7 +113,7 @@ const Mutation = objectType({
 })
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Post, User],
+  types: [Query, Mutation, Post, Profile, User],
   plugins: [nexusPrismaPlugin()],
   outputs: {
     schema: __dirname + '/../schema.graphql',

@@ -33,6 +33,13 @@ input PostWhereUniqueInput {
   id: Int
 }
 
+type Profile {
+  bio: String!
+  id: Int!
+  user: User!
+  userId: Int!
+}
+
 input ProfileCreateOneWithoutUserInput {
   connect: ProfileWhereUniqueInput
   create: ProfileCreateWithoutUserInput
@@ -57,6 +64,7 @@ type User {
   id: Int!
   name: String
   posts: [Post!]!
+  profile: Profile
 }
 
 input UserCreateInput {
