@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url = "***"
 }
 
 generator client {
@@ -16,13 +16,12 @@ model User {
   email    String    @unique
   posts    Post[]
   profile  Profile?
-  isAdmin  Boolean   @default(false)
 }
 
 model Profile {
   id     Int    @id @default(autoincrement())
   bio    String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
   userId Int
 }
 
@@ -30,6 +29,6 @@ model Post {
   id         Int      @id @default(autoincrement())
   title      String
   published  Boolean  @default(false)
-  author     User     @relation(fields: [authorId], references: [id])
+  author     User @relation(fields: [authorId], references: [id])
   authorId   Int
 }

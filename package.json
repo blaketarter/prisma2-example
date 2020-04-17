@@ -2,16 +2,27 @@
   "name": "prisma2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node index.ts",
+    "seed": "ts-node seed.ts",
+    "studio": "prisma studio --experimental",
+    "migration:create": "prisma migrate save --experimental",
+    "migration:run": "prisma migrate up --experimental",
+    "generate:prisma": "prisma generate",
+    "generate": "run-s generate:*",
+    "postinstall": "npm run generate"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@prisma/cli": "^2.0.0-beta.1",
-    "@types/node": "^13.11.0",
-    "ts-node": "^8.8.1",
+    "@prisma/cli": "^2.0.0-beta.2",
+    "@types/node": "^13.11.1",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^8.8.2",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.0.0-beta.2"
   }
 }
