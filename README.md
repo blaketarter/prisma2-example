@@ -45,6 +45,22 @@ After at least 1, 2, and 4 are completed successfully:
 - `npm run build` to generate the dist code
 - `npm run start` to start the dist code
 
+## Structure
+
+### Prisma/DB
+
+- `prisma/schema.prisma` acts as the DB schema that also includes the connection details. Editing this and then creating and running migrations is the primary way to change the DB.
+- `prisma/migrations` contains the code and documentation for all of the migrations the DB needs to be up to date.
+- `prisma/seed.ts` contains the code to seed the DB with test data.
+
+### Server/GraphQL
+
+- `src/schema.ts` contains the code describing the GraphQL schema, it contains Entity definitions, Query and Mutation definitions, along with the resolvers for all fields. It uses nexus/schema and nexus-plugin-prisma to integrate the types and resolvers that prisma provides.
+- `src/context.ts` sets up the apollo context object so you can use prisma queries and mutations inside of resolvers.
+- `src/server.ts` sets up the apollo server and runs it
+- `src/generated/nexus.ts` contains the auto-generated TypeScript types from nexus/schema
+- `schema.graphql` contains the auto-generated GraphQL SDL from nexus/schema
+
 ## Links
 
 ### Prisma
