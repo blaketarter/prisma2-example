@@ -129,22 +129,15 @@ const Mutation = objectType({
         password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { email, password }, ctx) => {
-        console.log("here 1")
         const user = await ctx.prisma.user.findOne({
           where: {
             email,
           },
         })
 
-        console.log("here 2")
-        console.log(user)
-
         if (user) {
           const passwordValid = await comparePassword(password, user.password)
-          console.log("here 3")
-
           if (passwordValid) {
-            console.log("here 4")
             return {
               token: signToken(user.id),
               user,
