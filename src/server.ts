@@ -1,8 +1,18 @@
 import { ApolloServer } from 'apollo-server'
+import dotenv from 'dotenv'
 import { schema } from './schema'
 import { createContext } from './context'
+import { permissions } from "./permissions"
+import { applyMiddleware } from 'graphql-middleware'
 
-new ApolloServer({ schema, context: createContext }).listen(
+dotenv.config()
+
+const server = new ApolloServer({
+  schema: applyMiddleware(schema, permissions),
+  context: createContext,
+})
+
+server.listen(
   { port: 4000 },
   () =>
     console.log(

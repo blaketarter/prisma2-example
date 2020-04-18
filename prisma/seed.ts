@@ -1,13 +1,17 @@
 import { PrismaClient } from "@prisma/client"
+import { hashPassword } from '../src/utils/auth/password'
 
 const prisma = new PrismaClient()
 
 async function main() {
+  const hashedPassword = await hashPassword("ExampleP@ssw0rd1")
+
   await prisma.user.create({
     data: {
       name: "Test User",
       email: "test@example.com",
       isAdmin: true,
+      password: hashedPassword,
       profile: {
         create: {
           bio: "I am a test user."

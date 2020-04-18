@@ -83,3 +83,8 @@ https://github.com/prisma/prisma-examples/tree/master/typescript/graphql-apollo-
 
 https://github.com/graphql-nexus/schema
 
+### Auth
+
+https://github.com/prisma/prisma-examples/blob/master/typescript/graphql-auth
+
+https://github.com/maticzav/graphql-shield

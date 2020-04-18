@@ -1,5 +1,8 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { intArg, makeSchema, objectType, stringArg } from '@nexus/schema'
+import { hashPassword, comparePassword } from './utils/auth/password'
+import { signToken } from './utils/auth/token'
+import { getUserId } from './utils/auth/getUserId'
 
 const User = objectType({
   name: 'User',
@@ -36,10 +39,31 @@ const Profile = objectType({
   }
 })
 
+const AuthPayload = objectType({
+  name: 'AuthPayload',
+  definition(t) {
+    t.string('token')
+    t.field('user', { type: 'User' })
+  },
+})
+
 const Query = objectType({
   name: 'Query',
   definition(t) {
     t.crud.post()
+
+    t.field('me', {
+      type: 'User',
+      nullable: true,
+      resolve: (parent, args, ctx) => {
+        const userId = getUserId(ctx)
+        return ctx.prisma.user.findOne({
+          where: {
+            id: Number(userId),
+          },
+        })
+      },
+    })
 
     t.list.field('feed', {
       type: 'Post',
@@ -72,24 +96,84 @@ const Query = objectType({
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    t.crud.createOneUser({ alias: 'signupUser' })
-    t.crud.deleteOnePost()
+    t.field('signup', {
+      type: 'AuthPayload',
+      args: {
+        name: stringArg(),
+        bio: stringArg(),
+        email: stringArg({ nullable: false }),
+        password: stringArg({ nullable: false }),
+      },
+      resolve: async (_parent, { name, email, password, bio }, ctx) => {
+        const hashedPassword = await hashPassword(password)
+        const user = await ctx.prisma.user.create({
+          data: {
+            name,
+            email,
+            password: hashedPassword,
+            profile: bio ? { create: { bio } } : null,
+          },
+        })
+
+        return {
+          token: signToken(user.id),
+          user,
+        }
+      },
+    })
+
+    t.field('login', {
+      type: 'AuthPayload',
+      args: {
+        email: stringArg({ nullable: false }),
+        password: stringArg({ nullable: false }),
+      },
+      resolve: async (_parent, { email, password }, ctx) => {
+        console.log("here 1")
+        const user = await ctx.prisma.user.findOne({
+          where: {
+            email,
+          },
+        })
+
+        console.log("here 2")
+        console.log(user)
+
+        if (user) {
+          const passwordValid = await comparePassword(password, user.password)
+          console.log("here 3")
+
+          if (passwordValid) {
+            console.log("here 4")
+            return {
+              token: signToken(user.id),
+              user,
+            }
+          }
+        }
+
+        throw new Error('Invalid password')
+      },
+    })
+
+    t.crud.deleteOnePost({ alias: 'deletePost' })
 
     t.field('createDraft', {
       type: 'Post',
       args: {
         title: stringArg({ nullable: false }),
         content: stringArg(),
-        authorEmail: stringArg(),
       },
-      resolve: (_, { title, content, authorEmail }, ctx) => {
+      resolve: (_, { title, content }, ctx) => {
+        const userId = getUserId(ctx)
+
         return ctx.prisma.post.create({
           data: {
             title,
             content,
             published: false,
             author: {
-              connect: { email: authorEmail },
+              connect: { id: userId },
             },
           },
         })
@@ -113,7 +197,7 @@ const Mutation = objectType({
 })
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Post, Profile, User],
+  types: [Query, Mutation, AuthPayload, Post, Profile, User],
   plugins: [nexusPrismaPlugin()],
   outputs: {
     schema: __dirname + '/../schema.graphql',
