@@ -12,6 +12,8 @@ import { schema } from './schema'
 dotenv.config()
 
 const APP_PORT = process.env.PORT ?? 4000
+const GRAPHQL_INTROSPECTION = process.env.GRAPHQL_INTROSPECTION ? Boolean(process.env.GRAPHQL_INTROSPECTION) : undefined
+const GRAPHQL_PLAYGROUND = process.env.GRAPHQL_PLAYGROUND ? Boolean(process.env.GRAPHQL_PLAYGROUND) : undefined
 
 const app = express();
 
@@ -21,6 +23,8 @@ app.use(cors())
 const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
   context: createContext,
+  introspection: GRAPHQL_INTROSPECTION,
+  playground: GRAPHQL_PLAYGROUND,
 })
 
 server.applyMiddleware({ app });
