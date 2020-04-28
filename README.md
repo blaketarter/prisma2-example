@@ -16,6 +16,19 @@ _This will be the first workflow one has to go through to initially setup the re
 
 After cloning the repo:
 
+Decide what data source you want to use. If you want to use SQLite leave the `prisma/schema.prisma` file as is. However if you wish to change the data source refer to https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-sources
+
+An example data source for `postgresql` would be:
+```
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+```
+Along with a `.env` file located at `prisma/.env` that includes `DATABASE_URL=some_database_url`.
+
+Once you've set up your data source:
+
 - `npm i` to install deps
 - `npm run migration:run` to create database
 - create a `.env` in the root of the project and add an `APP_SECRET=app_secret_goes_here` to it
@@ -100,6 +113,25 @@ To **signup** after at least workflows 1 and 4 are completed successfully:
 - `src/utils/auth/token.ts`  - utilities to sign and verify JWT tokens
 - `src/utils/auth/getUserId.ts`  - utility to take an incoming auth header and return the verified userId from the JWT
 
+## 🚀 Deployment
+
+### Heroku
+
+_Heroku deployment using Postgres as the database._
+
+- Create a Heroku app
+- Set up Heroku to pull from the desired repo
+- Add the node buildpack to the app
+- Add the Heroku Postgres add-on to the app
+- Add all of the necessary environment variables to the `Config Vars` section in the app settings
+  - `APP_SECRET` (required)
+  - `DATABASE_URL` (required)
+  - `GRAPHQL_INTROSPECTION` (optional)
+  - `GRAPHQL_PLAYGROUND` (optional)
+- Add `NODE_MODULES_CACHE`:`false` to the `Config Vars`, this is because the prisma client should not be cached
+- Run a manual deploy of the app
+- Turn on the `web` process in the `resources` tab of the app
+
 ## 🌐 Links
 
 ### Prisma
@@ -123,3 +155,8 @@ To **signup** after at least workflows 1 and 4 are completed successfully:
 - https://github.com/maticzav/graphql-shield
 - https://github.com/maticzav/graphql-shield/blob/master/examples/with-graphql-nexus
 - https://github.com/prisma-labs/graphql-middleware
+
+### Heroku
+
+- https://devcenter.heroku.com/articles/getting-started-with-nodejs
+- https://devcenter.heroku.com/articles/nodejs-support
