@@ -120,6 +120,13 @@ To **signup** after at least workflows 1 and 4 are completed successfully:
 _Heroku deployment using Postgres as the database._
 
 - Create a Heroku app
+- Add a `Procfile` to the root of the project:
+```
+release: npm run migration:run:up
+web: npm run start
+```
+Will run migrations after the app builds and then start the web server.
+
 - Set up Heroku to pull from the desired repo
 - Add the node buildpack to the app
 - Add the Heroku Postgres add-on to the app
@@ -160,3 +167,4 @@ _Heroku deployment using Postgres as the database._
 
 - https://devcenter.heroku.com/articles/getting-started-with-nodejs
 - https://devcenter.heroku.com/articles/nodejs-support
+- https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/deployment
