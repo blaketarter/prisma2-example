@@ -11,7 +11,7 @@ import { schema } from './schema'
 
 dotenv.config()
 
-const APP_PORT = process.env.APP_PORT ?? 4000
+const APP_PORT = process.env.PORT ?? 4000
 
 const app = express();
 
