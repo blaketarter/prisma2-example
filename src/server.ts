@@ -20,6 +20,10 @@ const app = express();
 app.use(helmet())
 app.use(cors())
 
+app.get("/", (_req, res) => {
+  res.sendStatus(200)
+})
+
 const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
   context: createContext,
