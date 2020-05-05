@@ -21,11 +21,13 @@ Decide what data source you want to use. If you want to use SQLite leave the `pr
 An example data source for `postgresql` would be:
 ```
 datasource db {
-  url      = env("DATABASE_URL")
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 ```
-Along with a `.env` file located at `prisma/.env` that includes `DATABASE_URL=some_database_url`.
+Make sure to create a `.env` file located at `prisma/.env` that includes `DATABASE_URL=some_database_url`.
+
+For SQLite this URL will be a file path, for example `DATABASE_URL=file:./dev.db`.
 
 Once you've set up your data source:
 
@@ -138,6 +140,14 @@ Will run migrations after the app builds and then start the web server.
 - Add `NODE_MODULES_CACHE`:`false` to the `Config Vars`, this is because the prisma client should not be cached
 - Run a manual deploy of the app
 - Turn on the `web` process in the `resources` tab of the app
+
+## 🕵️‍♀️ Troubleshooting
+
+- If you are using SQLite as the data source for the API you can delete all data and start fresh by deleting the file that SQLite is connected to, for example `./prisma/dev.db`, and re-running `npm run migration:run` and `npm run prisma:seed`.
+- If you run into issues with Prisma (i.e. prisma-client, studio, or migrations) try:
+  - Delete `node_modules` using `rm -rf node_modules` when at the root of the project
+  - Re-install dependencies `npm i`
+  - Ensure the Prisma client has re-generated
 
 ## 🌐 Links
 

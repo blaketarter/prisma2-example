@@ -1,10 +1,13 @@
-import { PrismaClient } from "@prisma/client"
+import path from "path"
 import dotenv from 'dotenv'
+import { PrismaClient } from "@prisma/client"
 import { hashPassword } from '../src/utils/auth/password'
 
-dotenv.config()
+dotenv.config({ path: path.join(__dirname, ".env") })
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+  errorFormat: "pretty"
+})
 
 async function main() {
   const hashedPassword = await hashPassword("ExampleP@ssw0rd1")
@@ -59,11 +62,6 @@ async function main() {
     }, Promise.resolve())
   }
 
-  const post = await prisma.post.update({
-    where: { id: 1 },
-    data: { published: true },
-  })
-
   const allUsers2 = await prisma.user.findMany({
     include: { 
       posts: true,
@@ -76,7 +74,7 @@ async function main() {
 
 main()
   .catch(e => {
-    throw e
+    console.error(e)
   })
   .finally(async () => {
     await prisma.disconnect()

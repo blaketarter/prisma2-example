@@ -59,7 +59,7 @@ const Query = objectType({
         const userId = getUserId(ctx)
         return ctx.prisma.user.findOne({
           where: {
-            id: Number(userId),
+            id: userId,
           },
         })
       },
@@ -177,11 +177,11 @@ const Mutation = objectType({
       type: 'Post',
       nullable: true,
       args: {
-        id: intArg(),
+        id: stringArg(),
       },
       resolve: (_, { id }, ctx) => {
         return ctx.prisma.post.update({
-          where: { id: Number(id) },
+          where: { id },
           data: { published: true },
         })
       },

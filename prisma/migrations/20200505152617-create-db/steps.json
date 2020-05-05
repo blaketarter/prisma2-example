@@ -21,7 +21,7 @@
         "source": "db"
       },
       "argument": "url",
-      "value": "\"file:./dev.db\""
+      "value": "env(\"DATABASE_URL\")"
     },
     {
       "tag": "CreateModel",
@@ -31,7 +31,7 @@
       "tag": "CreateField",
       "model": "User",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -68,7 +68,7 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
     },
     {
       "tag": "CreateField",
@@ -110,6 +110,45 @@
       "arity": "Optional"
     },
     {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "password",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "isAdmin",
+      "type": "Boolean",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "isAdmin"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "isAdmin"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "false"
+    },
+    {
       "tag": "CreateModel",
       "model": "Profile"
     },
@@ -117,7 +156,7 @@
       "tag": "CreateField",
       "model": "Profile",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -154,7 +193,7 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
     },
     {
       "tag": "CreateField",
@@ -213,7 +252,7 @@
       "tag": "CreateField",
       "model": "Profile",
       "field": "userId",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -224,7 +263,7 @@
       "tag": "CreateField",
       "model": "Post",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -261,7 +300,7 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
     },
     {
       "tag": "CreateField",
@@ -269,6 +308,38 @@
       "field": "title",
       "type": "String",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Post",
+      "field": "content",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Post",
+          "field": "content"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Post",
+          "field": "content"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "\"\""
     },
     {
       "tag": "CreateField",
@@ -352,7 +423,7 @@
       "tag": "CreateField",
       "model": "Post",
       "field": "authorId",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     }
   ]

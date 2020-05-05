@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node dist/server",
-    "start:dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server",
+    "start:dev": "ts-node-dev --type-check --respawn --no-notify --  src/server",
     "test": "run-s build test:server",
     "test:ci": "CI=true npm run test",
     "test:server": "PORT=5000 start-server-and-test start 'http://localhost:5000' test:server:curl",
