@@ -14,6 +14,8 @@ const User = objectType({
       pagination: false,
     })
     t.model.profile({})
+    t.model.createdAt()
+    t.model.updatedAt()
   },
 })
 
@@ -26,6 +28,8 @@ const Post = objectType({
     t.model.published()
     t.model.author()
     t.model.authorId()
+    t.model.createdAt()
+    t.model.updatedAt()
   },
 })
 
@@ -36,6 +40,8 @@ const Profile = objectType({
     t.model.bio()
     t.model.user()
     t.model.userId()
+    t.model.createdAt()
+    t.model.updatedAt()
   }
 })
 

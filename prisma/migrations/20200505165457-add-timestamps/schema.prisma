@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -20,7 +20,7 @@ model User {
   isAdmin  Boolean   @default(false)
   
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @updatedAt @default(now())
 }
 
 model Profile {
@@ -30,7 +30,7 @@ model Profile {
   userId String
 
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @updatedAt @default(now())
 }
 
 model Post {
@@ -42,5 +42,5 @@ model Post {
   authorId   String
   
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @updatedAt @default(now())
 }

@@ -7,6 +7,8 @@ type AuthPayload {
   user: User!
 }
 
+scalar DateTime
+
 type Mutation {
   createDraft(content: String, title: String!): Post!
   deletePost(where: PostWhereUniqueInput!): Post
@@ -19,9 +21,11 @@ type Post {
   author: User!
   authorId: String!
   content: String!
+  createdAt: DateTime!
   id: String!
   published: Boolean!
   title: String!
+  updatedAt: DateTime!
 }
 
 input PostWhereUniqueInput {
@@ -30,7 +34,9 @@ input PostWhereUniqueInput {
 
 type Profile {
   bio: String!
+  createdAt: DateTime!
   id: String!
+  updatedAt: DateTime!
   user: User!
   userId: String!
 }
@@ -43,9 +49,11 @@ type Query {
 }
 
 type User {
+  createdAt: DateTime!
   email: String!
   id: String!
   name: String
   posts: [Post!]!
   profile: Profile
+  updatedAt: DateTime!
 }

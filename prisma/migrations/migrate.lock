@@ -4,3 +4,7 @@
 # Read more about conflict resolution here: TODO
 
 20200505152617-create-db
+20200505164726-add-timestamps
+20200505164825-add-timestamps
+20200505165457-add-timestamps
+20200505165538-remove-default-updated-at
