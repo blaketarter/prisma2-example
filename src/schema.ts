@@ -89,8 +89,8 @@ const Query = objectType({
         return ctx.prisma.post.findMany({
           where: {
             OR: [
-              { title: { contains: searchString } },
-              { content: { contains: searchString } },
+              { title: { contains: searchString ?? undefined } },
+              { content: { contains: searchString ?? undefined } },
             ],
           },
         })
@@ -169,7 +169,7 @@ const Mutation = objectType({
         return ctx.prisma.post.create({
           data: {
             title,
-            content,
+            content: content ?? undefined,
             published: false,
             author: {
               connect: { id: userId },
@@ -187,7 +187,7 @@ const Mutation = objectType({
       },
       resolve: (_, { id }, ctx) => {
         return ctx.prisma.post.update({
-          where: { id },
+          where: { id: id ?? undefined },
           data: { published: true },
         })
       },
