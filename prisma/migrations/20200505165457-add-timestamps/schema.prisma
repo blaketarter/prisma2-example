@@ -11,26 +11,36 @@ generator client {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(cuid())
   name     String?
   email    String    @unique
   posts    Post[]
   profile  Profile?
+  password String
   isAdmin  Boolean   @default(false)
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
 }
 
 model Profile {
-  id     Int    @id @default(autoincrement())
+  id     String    @id @default(cuid())
   bio    String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int
+  user   User      @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
 }
 
 model Post {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(cuid())
   title      String
   content    String   @default("")
   published  Boolean  @default(false)
   author     User     @relation(fields: [authorId], references: [id])
-  authorId   Int
+  authorId   String
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
 }
