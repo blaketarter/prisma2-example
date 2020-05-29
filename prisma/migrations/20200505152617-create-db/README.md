@@ -41,7 +41,7 @@ migration ..20200505152617-create-db
 +// learn more about it in the docs: https://pris.ly/d/prisma-schema
 +
 +datasource db {
-+  provider = "sqlite"
++  provider = "postgresql"
 +  url      = env("DATABASE_URL")
 +}
 +

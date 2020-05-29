@@ -63,7 +63,7 @@ migration 20200505165457-add-timestamps..20200505165538-remove-default-updated-a
 @@ -2,9 +2,9 @@
  // learn more about it in the docs: https://pris.ly/d/prisma-schema
  datasource db {
-   provider = "sqlite"
+   provider = "postgresql"
 -  url = "***"
 +  url      = env("DATABASE_URL")
  }

@@ -22,7 +22,7 @@ migration 20200505165538-remove-default-updated-at..20200512102734-add-id-alias
 +type ID = String @id @default(cuid())
 +
  datasource db {
-   provider = "sqlite"
+   provider = "postgresql"
 -  url = "***"
 +  url      = env("DATABASE_URL")
  }
