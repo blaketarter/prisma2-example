@@ -3,7 +3,9 @@
 # Prisma Migrate lockfile v1
 # Read more about conflict resolution here: TODO
 
-20200417094252-create-db
-20200417094714-add-is-admin-to-user
-20200417105114-add-content-to-post
-20200417142958-add-user-password
+20200505152617-create-db
+20200505164726-add-timestamps
+20200505164825-add-timestamps
+20200505165457-add-timestamps
+20200505165538-remove-default-updated-at
+20200512102734-add-id-alias

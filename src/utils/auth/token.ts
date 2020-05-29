@@ -1,7 +1,8 @@
 import { sign, verify, SignOptions } from 'jsonwebtoken'
+import { User } from '@prisma/client'
 
 export interface Token {
-  userId: number
+  userId: User["id"]
 }
 
 const jwtOptions: Partial<SignOptions> = {
@@ -9,7 +10,7 @@ const jwtOptions: Partial<SignOptions> = {
 }
 
 const isValidToken = (token: Token): boolean => {
-  if (!token || !token.userId || typeof token.userId !== "number" ) {
+  if (!token || !token.userId || typeof token.userId !== "string" ) {
     throw new Error('Invalid token')
   }
 

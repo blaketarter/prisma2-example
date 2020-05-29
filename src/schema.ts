@@ -14,6 +14,8 @@ const User = objectType({
       pagination: false,
     })
     t.model.profile({})
+    t.model.createdAt()
+    t.model.updatedAt()
   },
 })
 
@@ -26,6 +28,8 @@ const Post = objectType({
     t.model.published()
     t.model.author()
     t.model.authorId()
+    t.model.createdAt()
+    t.model.updatedAt()
   },
 })
 
@@ -36,6 +40,8 @@ const Profile = objectType({
     t.model.bio()
     t.model.user()
     t.model.userId()
+    t.model.createdAt()
+    t.model.updatedAt()
   }
 })
 
@@ -59,7 +65,7 @@ const Query = objectType({
         const userId = getUserId(ctx)
         return ctx.prisma.user.findOne({
           where: {
-            id: Number(userId),
+            id: userId,
           },
         })
       },
@@ -83,8 +89,8 @@ const Query = objectType({
         return ctx.prisma.post.findMany({
           where: {
             OR: [
-              { title: { contains: searchString } },
-              { content: { contains: searchString } },
+              { title: { contains: searchString ?? undefined } },
+              { content: { contains: searchString ?? undefined } },
             ],
           },
         })
@@ -163,7 +169,7 @@ const Mutation = objectType({
         return ctx.prisma.post.create({
           data: {
             title,
-            content,
+            content: content ?? undefined,
             published: false,
             author: {
               connect: { id: userId },
@@ -177,11 +183,11 @@ const Mutation = objectType({
       type: 'Post',
       nullable: true,
       args: {
-        id: intArg(),
+        id: stringArg(),
       },
       resolve: (_, { id }, ctx) => {
         return ctx.prisma.post.update({
-          where: { id: Number(id) },
+          where: { id: id ?? undefined },
           data: { published: true },
         })
       },

@@ -2,18 +2,16 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url = "***"
 }
 
 generator client {
   provider = "prisma-client-js"
 }
 
-type ID = String @id @default(cuid())
-
 model User {
-  id       ID
+  id       String    @id @default(cuid())
   name     String?
   email    String    @unique
   posts    Post[]
@@ -26,7 +24,7 @@ model User {
 }
 
 model Profile {
-  id     ID
+  id     String    @id @default(cuid())
   bio    String
   user   User      @relation(fields: [userId], references: [id])
   userId String
@@ -36,7 +34,7 @@ model Profile {
 }
 
 model Post {
-  id         ID
+  id         String   @id @default(cuid())
   title      String
   content    String   @default("")
   published  Boolean  @default(false)

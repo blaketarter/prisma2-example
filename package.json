@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node dist/server",
-    "start:dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server",
+    "start:dev": "ts-node-dev --type-check --respawn --no-notify --  src/server",
     "test": "run-s build test:server",
     "test:ci": "CI=true npm run test",
     "test:server": "PORT=5000 start-server-and-test start 'http://localhost:5000' test:server:curl",
@@ -28,31 +28,32 @@
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/helmet": "0.0.46",
-    "@types/jsonwebtoken": "^8.3.9",
-    "@types/node": "^13.13.4",
+    "@types/helmet": "0.0.47",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/node": "^14.0.5",
+    "@types/react": "^16.9.35",
     "cross-env": "^7.0.2",
     "npm-run-all": "^4.1.5",
     "start-server-and-test": "^1.11.0",
-    "ts-node": "^8.10.1",
+    "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@nexus/schema": "^0.13.1",
-    "@prisma/cli": "^2.0.0-beta.4",
-    "@prisma/client": "^2.0.0-beta.4",
-    "apollo-server": "^2.13.0",
-    "apollo-server-express": "^2.13.0",
+    "@nexus/schema": "^0.14.0-next.2",
+    "@prisma/cli": "^2.0.0-alpha.1263",
+    "@prisma/client": "^2.0.0-alpha.1263",
+    "apollo-server": "^2.14.1",
+    "apollo-server-express": "^2.14.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "graphql": "^14.0.0",
     "graphql-middleware": "^4.0.2",
-    "graphql-shield": "^7.2.6",
+    "graphql-shield": "^7.3.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
-    "nexus-prisma": "^0.12.0"
+    "nexus-prisma": "^0.14.0-next.1"
   },
   "engines": {
     "node": "10.x.x"
