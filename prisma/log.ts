@@ -10,7 +10,7 @@ const prisma = new PrismaClient({
 
 async function main() {
   const allUsers = await prisma.user.findMany({
-    first: 100,
+    take: 100,
     select: {
       id: true,
       name: true,
@@ -26,7 +26,7 @@ async function main() {
   console.log(allUsers)
 
   const allProfiles = await prisma.profile.findMany({
-    first: 100,
+    take: 100,
     select: {
       id: true,
       bio: true,
@@ -39,7 +39,7 @@ async function main() {
   console.log(allProfiles)
 
   const allPosts = await prisma.post.findMany({
-    first: 100,
+    take: 100,
     select: {
       id: true,
       title: true,
