@@ -53,7 +53,7 @@
     "graphql-shield": "^7.3.2",
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
-    "nexus-prisma": "^0.14.0"
+    "nexus-prisma": "^0.15.0"
   },
   "engines": {
     "node": "10.x.x"
