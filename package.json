@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node dist/server",
-    "start:dev": "ts-node-dev --type-check --respawn --no-notify --  src/server",
+    "start:dev": "ts-node-dev --files --respawn --no-notify --  src/server",
     "test": "run-s build test:server",
     "test:ci": "CI=true npm run test",
     "test:server": "PORT=5000 start-server-and-test start 'http://localhost:5000' test:server:curl",
@@ -36,15 +36,15 @@
     "npm-run-all": "^4.1.5",
     "start-server-and-test": "^1.11.2",
     "ts-node": "^8.10.2",
-    "ts-node-dev": "^1.0.0-pre.51",
-    "typescript": "^3.9.6"
+    "ts-node-dev": "^1.0.0-pre.52",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
-    "@prisma/cli": "^2.2.2",
-    "@prisma/client": "^2.2.2",
-    "apollo-server": "^2.15.1",
-    "apollo-server-express": "^2.15.1",
+    "@prisma/cli": "^2.3.0",
+    "@prisma/client": "^2.3.0",
+    "apollo-server": "^2.16.0",
+    "apollo-server-express": "^2.16.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
