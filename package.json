@@ -52,7 +52,7 @@
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.3.0",
     "helmet": "^3.22.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "nexus-prisma": "^0.14.0"
   },
   "engines": {
